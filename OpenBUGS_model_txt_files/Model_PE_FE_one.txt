@@ -1,0 +1,77 @@
+# MA model, one cut point
+Model {
+  
+  for (i in 1:N){
+    d[i]~dpois(mu[i]) #likelihood
+    log(mu[i]) <-alpha*treatment[i] + beta[trialid[i],spgrp[i]] + log(y[i])
+    + phi1*treatment[i]*z1[i]
+  }
+  
+  ### Priors ###
+  
+  for (p in 1:J){
+    for (q in 1:ints){
+      beta[p,q]~dnorm(0.0, 0.0001)
+    }
+  }
+  
+    alpha~dnorm(0, 0.0001)
+
+  phi1 ~ dnorm(0, 0.01)
+
+# Trial 4 is the baseline trial
+ for(u in 1:3){
+    log(hazard[1,u]) <- beta[4,u]   # Control
+    log(hazard[2,u]) <- beta[4,u] + alpha # Intervention
+  }
+  
+  for(u in 4:4){
+    log(hazard[1,u]) <- beta[4,u]    # Control
+    log(hazard[2,u]) <- beta[4,u] + alpha + phi1  # Intervention
+  }
+
+# Months 1-6
+for(k in 1:ntrt){
+ for(t in 1:6) {
+      Cum_H[k,t] <- t*hazard[k, 1] # Cumulative hazard over time by treatment
+      TT[k,t] <- 1 - exp(-Cum_H[k,t]) # mortality over time by treatment
+      S[k,t] <- 1 - TT[k,t] # Survival over time by treatment
+  }
+}
+
+# Months 7-12
+for(k in 1:ntrt){
+ for(t in 7:12) {
+      Cum_H[k,t] <- Cum_H[k,6] + ((t-6)*hazard[k,2]) # Cumulative hazard over time by treatment 
+      TT[k,t] <- 1 - exp(-Cum_H[k,t]) # mortality over time by treatment
+      S[k,t] <- 1 - TT[k,t] # Survival over time by treatment
+  }
+}
+
+# Months 13-18
+for(k in 1:ntrt){
+	for(t in 13:18) {
+      Cum_H[k,t] <- Cum_H[k,12] + ((t-12)*hazard[k,3]) # Cumulative hazard over time by treatment 
+      TT[k,t] <- 1 - exp(-Cum_H[k,t]) # mortality over time by treatment
+      S[k,t] <- 1 - TT[k,t] # Survival over time by treatment
+  }
+}
+
+# Months 19-600
+for(k in 1:ntrt){
+	for(t in 19:600) {
+      Cum_H[k,t] <- Cum_H[k,18] + ((t-18)*hazard[k,4]) # Cumulative hazard over time by treatment 
+      TT[k,t] <- 1 - exp(-Cum_H[k,t]) # mortality over time by treatment
+      S[k,t] <- 1 - TT[k,t] # Survival over time by treatment
+  }
+}
+
+# Calculate area under the curve
+for(k in 1:nt){ 
+	rmst[k] <- 0.5*(1 + 2*sum(S[k, 1:599]) +S[k,600])
+}
+
+rmstD <- rmst[2] - rmst[1]
+
+  
+}

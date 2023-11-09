@@ -1,0 +1,67 @@
+#Fixed effects 2nd order fractional polynomial model
+model{                         	 # *** PROGRAM STARTS
+for (j in 1:N){   								# LOOP THROUGH EVENTS
+
+# time in months transformed according to powers P1 and P2 
+  timen[j]<-(time[j])    
+  timen1[j]<-(equals(P1,0)*log(timen[j])+(1-equals(P1,0))*pow(timen[j],P1)   ) 
+  timen2[j]<-((1-equals(P2,P1))*(equals(P2,0)*log(timen[j])+(1-equals(P2,0))*pow(timen[j],P2)) +equals(P2,P1)*(equals(P2,0)*log(timen[j])*log(timen[j])+(1-equals(P2,0))*pow(timen[j],P2)*log(timen[j])))
+
+  r[j]~dbin(p[j], z[j])      		 # likelihood according to eq. 
+  p[j]<-1-exp(-h[j]*dt[j])   		 # hazard rate in each interval standardized by unit of time 
+
+#Fixed effects model
+# hazard over time according to FP
+  log(h[j])<-Alpha[s[j],a[j],1]+Alpha[s[j],a[j],2]*timen1[j]+Alpha[s[j],a[j],3]*timen2[j]  
+ }
+
+for (i in 1:ns){                  # LOOP THROUGH STUDIES
+  for (k in 1:na[i]){             # LOOP THROUGH ARMS
+    Alpha[i,k,1]<-mu[i,1]+d[t[i,k],1]-d[t[i,1],1] # model for linear predictor of alpha_0 
+    Alpha[i,k,2]<-mu[i,2]+d[t[i,k],2]-d[t[i,1],2] # model for linear predictor of alpha_1
+    Alpha[i,k,3]<-mu[i,3]+d[t[i,k],3]-d[t[i,1],3] # model for linear predictor of alpha_2
+   }
+ }
+    
+#priors
+for (i in 1:ns){        			    # LOOP THROUGH STUDIES
+  mu[i,1:3] ~ dmnorm(mean[1:3],prec[,])   # vague priors for all trial baselines 
+ }
+d[1,1]<-0        					       # alpha_0 treatment effect is zero for reference treatment
+d[1,2]<-0       						      # alpha_1 treatment effect is zero for reference treatment
+d[1,3]<-0       						      # alpha_2 treatment effect is zero for reference treatment
+
+for (k in 2:nt){			      	    # LOOP THROUGH TREATMENTS
+  d[k,1:3] ~ dmnorm(mean[1:3],prec[,])  # vague priors for treatment effects 
+ }
+
+#Output
+for (m in 1:maxt){     					 # create time points for output 
+  time1[m]<-(equals(P1,0)*log(m) + (1-equals(P1,0))*pow(m,P1)   ) 
+  time2[m]<-((1-equals(P2,P1))*(equals(P2,0)*log(m)+(1-equals(P2,0))*pow(m,P2))+  
+  equals(P2,P1)*(equals(P2,0)*log(m)*log(m)+(1-equals(P2,0))*pow(m,P2) *log(m)))
+ }
+
+
+# Provide estimates of survival probabilities over time by treatment 
+for (k in 1:nt){
+  alpha0[k]<-mu[4,1]+d[k,1]       # alpha_0 by treatment using baseline from study 4 
+  alpha1[k]<-mu[4,2]+d[k,2]       # alpha_1 by treatment using baseline from study 4 
+  alpha2[k]<-mu[4,3]+d[k,3]       # alpha_2 by treatment using baseline from study 4 
+      
+  for (m in 1:maxt){
+    #hazard over time by treatment
+    log(HAZARD[k,m])<-alpha0[k]+alpha1[k]*time1[m]+alpha2[k]*time2[m]  
+		CUM_H[k,m]<-sum(HAZARD[k,1:m])  # cumulative hazard over time by treatment
+  	T[k,m]<-1-exp(-CUM_H[k,m])	  # mortality over time by treatment
+		S[k,m]<-1-T[k,m]              # survival over time by treatment
+   }
+ }
+# Calculate area under the curve
+for(k in 1:nt){ 
+	rmst[k] <- 0.5*(1 + 2*sum(S[k, 1:599]) +S[k,600])
+}
+
+rmstD <- rmst[2] - rmst[1]
+
+}                                 # *** PROGRAM ENDS
