@@ -1,0 +1,3 @@
+Fit_PE_FE_one - fits the piecewise exponential model with one cut point. Note you will need to specify on line 71 which cut point you wish to include within your model.
+
+Fit_PE_FE_two - fits the piecewise exponential model with two cut points. Note you will need to specify on line 74 which cut points you wish to include within your model.
