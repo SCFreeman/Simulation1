@@ -1,5 +1,7 @@
 # Simulation1
 
+This repository contains the R code to accompnay the paper "Bayesian pairwise meta-analysis of time-to-event outcomes in the presence of non-proportional hazards: A simulation study of flexible parametric, piecewise exponential and fractional polynomial models" by Freean et al. 
+
 The folder OpenBUGS_model_txt_files contains .txt files with the model to be fitted written in BUGS code.
 
 The folder R_data_gen_functions contains two R functions needed for generating data.
