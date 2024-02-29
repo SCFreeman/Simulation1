@@ -1,1 +1,7 @@
-T
+This folder contains a .csv file containing the reconstructed IPD for the breast cancer example.
+
+Columns in the dataset are:
+studyID (1 = Tabernero et al., 2 = Rivera et al., 3 = Schroder et al., 4= Stemmler et al.)
+arm (1 = 3-weekly, 2 = Weekly)
+Time (overall survival time in months)
+Event (1 = Dead, 0 = Censored)
