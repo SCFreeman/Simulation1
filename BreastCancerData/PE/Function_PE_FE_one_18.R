@@ -1,12 +1,8 @@
-# Fit piecewise model in OpenBUGS
-# 22nd July 2021
-# Suzanne Freeman
-
+# Fit piecewise model in OpenBUGS - one cut point at 18 months
 
 piecewise_one_cut_try18 <- function(data, num.sims, burn.in, cutpoint){
   
   # cutpoint is a location so need to pull the actual value out of cutpoints
-  #cut <- cutpoints[cutpoint]
   cut <- cutpoint
   
   # Need to create z1 variable in data frame for the cut point
