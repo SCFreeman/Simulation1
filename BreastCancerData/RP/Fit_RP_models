@@ -1,0 +1,90 @@
+# FIT ROYSTON-PARMAR MODEL
+
+library(survival)
+library(simsurv)
+library(foreach)
+library(splitstackshape)
+library(plyr)
+library(dplyr)
+library(doBy)
+library(bdsmatrix)
+library(boot)
+library(coda)
+library(coxme)
+library(BRugs)
+library(R2OpenBUGS)
+library(survRM2)
+library(ggplot2)
+library(survminer)
+library(metafor)
+library(pracma)
+
+# Read in csv file
+data <- read.csv("breast_data.csv")
+df_num <- 1
+
+# Rename some variables in the dataset
+colnames(data) <- c("X", "trialid", "arm", "eventtime", "died")
+
+# Create new variable with 0/1 coding for treatment arm
+data$treat[data$arm==1] <- 0
+data$treat[data$arm==2] <- 1
+
+# Number of studies in each meta-analysis
+num_studies <- 4
+
+# Number of patients in each study
+num_patients <- c(83, 118, 159, 85)
+
+######  INPUTS FOR MODEL FITTING IN OPENBUGS #####
+
+# OpenBUGS burn-in & simulation size
+num.sims <- 90000
+burn.in <- 60000
+
+
+# Load models
+source("Function_RP_1knot.R")
+source("Function_RP_2knots.R")
+source("Function_RP_3knots.R")
+source("Function_RP_4knots.R")
+
+# Empty data frame
+rp_fe_1knot <- data.frame(knots=numeric(df_num),
+                           rmstD=numeric(df_num), rmstD_lci=numeric(df_num), rmstD_uci=numeric(df_num), rmstD_sd=numeric(df_num), 
+                           beta1=numeric(df_num), beta1_lci=numeric(df_num), beta1_uci=numeric(df_num), 
+                           beta2=numeric(df_num), beta2_lci=numeric(df_num), beta2_uci=numeric(df_num), 
+                           beta1_Rhat=numeric(df_num), beta2_Rhat=numeric(df_num))
+
+# 1 knot
+foreach(i=1:df_num) %do% {
+  print(i)
+  rp_fe_1knot[i,] <- royston_parmar_fe_lnt_1knot(df=data, num.sims=num.sims, burn.in=burn.in)
+}
+
+write.csv(rp_fe_1knot, "Results_RP_1knot.csv")
+
+# 2 knots
+foreach(i=1:df_num) %do% {
+  print(i)
+  rp_fe_1knot[i,] <- royston_parmar_fe_lnt_2knots(df=data, num.sims=num.sims, burn.in=burn.in)
+}
+
+write.csv(rp_fe_1knot, "Results_RP_2knots.csv")
+
+# 3 knots
+foreach(i=1:df_num) %do% {
+  print(i)
+  rp_fe_1knot[i,] <- royston_parmar_fe_lnt_3knots(df=data, num.sims=num.sims, burn.in=burn.in)
+}
+
+write.csv(rp_fe_1knot, "Results_RP_3knots.csv")
+
+# 4 knots
+foreach(i=1:df_num) %do% {
+  print(i)
+  rp_fe_1knot[i,] <- royston_parmar_fe_lnt_4knots(df=data, num.sims=num.sims, burn.in=burn.in)
+}
+
+write.csv(rp_fe_1knot, "Results_RP_4knots.csv")
+
