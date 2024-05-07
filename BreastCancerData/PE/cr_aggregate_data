@@ -8,7 +8,6 @@ library(doBy)
 rm(list = ls()) 
 
 # Set the working directory
-setwd("C:/Users/scf20/OneDrive - University of Leicester/NIHR Fellowship/Work Package 2/Example/Piecewise")
 
 # Start with IPD data
 data <- read.csv("../Data/breast_data.csv")
@@ -19,7 +18,7 @@ data$treatment[data$arm==2] <- "Weekly"
 data$treatment <- as.factor(data$treatment)
 
 # Import function for aggregating data
-source("anova_data.R")
+source("Function_anova_data.R")
 
 # Select time points for aggregating data
 timepoints=c(6, 12, 18)
