@@ -1,0 +1,5 @@
+# The folder Simulation1/BrestCancerData/FP contains files for fitting fractional polynomial models to the breast cancer data
+
+# 1. First the IPD data needs to be aggregated - the file cr_aggregate_data does this calling the file Function_anova_data and produces the file breast_aggregate_data_fp.csv
+# 2. Models with one cut point are fitted in Fit_PE1.R. This files calls the functions Function_PE_FE_one_6.R, Function_PE_FE_one_12.R and Function_PE_FE_one_18.R. 
+# 3. Models with two cut points are fitted in Fit_PE2.R. This files calls the functions Function_PE_FE_two_612.R, Function_PE_FE_two_618.R and Function_PE_FE_two_1218.R
