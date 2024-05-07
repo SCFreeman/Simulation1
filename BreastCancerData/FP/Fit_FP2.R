@@ -28,7 +28,7 @@ burn.in <- 30000
 
 # Read in csv file
 data <- read.csv("breast_aggregate_data_fp.csv")
-df_num <- 20
+df_num <- 2
 
 
 # Fit FP model
@@ -48,27 +48,8 @@ fp2 <- data.frame(p1=numeric(df_num), p2=numeric(df_num),
 
 
 # Run model
-  fp2[1,] <- fp_secondorder_fe(data=data, P1=-2, P2=-1, num.sims=num.sims, burn.in=burn.in, maxt=600)
-  fp2[2,] <- fp_secondorder_fe(data=data, P1=-2, P2=-0.5, num.sims=num.sims, burn.in=burn.in, maxt=600)
-  fp2[3,] <- fp_secondorder_fe(data=data, P1=-2, P2=0, num.sims=num.sims, burn.in=burn.in, maxt=600)
-  fp2[4,] <- fp_secondorder_fe(data=data, P1=--2, P2=1, num.sims=num.sims, burn.in=burn.in, maxt=600)
-  fp2[5,] <- fp_secondorder_fe(data=data, P1=-1, P2=-0.5, num.sims=num.sims, burn.in=burn.in, maxt=600)
-  fp2[6,] <- fp_secondorder_fe(data=data, P1=-1, P2=0, num.sims=num.sims, burn.in=burn.in, maxt=600)
-  fp2[7,] <- fp_secondorder_fe(data=data, P1=-1, P2=0.5, num.sims=num.sims, burn.in=burn.in, maxt=600)
-  fp2[8,] <- fp_secondorder_fe(data=data, P1=-1, P2=1, num.sims=num.sims, burn.in=burn.in, maxt=600)
-  fp2[9,] <- fp_secondorder_fe(data=data, P1=-0.5, P2=0, num.sims=num.sims, burn.in=burn.in, maxt=600)
-  fp2[10,] <- fp_secondorder_fe(data=data, P1=-0.5, P2=0.5, num.sims=num.sims, burn.in=burn.in, maxt=600)
-  fp2[11,] <- fp_secondorder_fe(data=data, P1=-0.5, P2=1, num.sims=num.sims, burn.in=burn.in, maxt=600)
-  fp2[12,] <- fp_secondorder_fe(data=data, P1=0, P2=0.5, num.sims=num.sims, burn.in=burn.in, maxt=600)
-  fp2[13,] <- fp_secondorder_fe(data=data, P1=0, P2=1, num.sims=num.sims, burn.in=burn.in, maxt=600)
-  fp2[14,] <- fp_secondorder_fe(data=data, P1=0.5, P2=1, num.sims=num.sims, burn.in=burn.in, maxt=600)
-  fp2[15,] <- fp_secondorder_fe(data=data, P1=-2, P2=-2, num.sims=num.sims, burn.in=burn.in, maxt=600)
-  fp2[16,] <- fp_secondorder_fe(data=data, P1=-1, P2=-1, num.sims=num.sims, burn.in=burn.in, maxt=600)
-  fp2[17,] <- fp_secondorder_fe(data=data, P1=-0.5, P2=-0.5, num.sims=num.sims, burn.in=burn.in, maxt=600)
-  fp2[18,] <- fp_secondorder_fe(data=data, P1=0, P2=0, num.sims=num.sims, burn.in=burn.in, maxt=600)
-  fp2[19,] <- fp_secondorder_fe(data=data, P1=0.5, P2=0.5, num.sims=num.sims, burn.in=burn.in, maxt=600)
-  fp2[20,] <- fp_secondorder_fe(data=data, P1=1, P2=1, num.sims=num.sims, burn.in=burn.in, maxt=600)
-
-
+  fp2[1,] <- fp_secondorder_fe(data=data, P1=-0.5, P2=0, num.sims=num.sims, burn.in=burn.in, maxt=600)
+  fp2[2,] <- fp_secondorder_fe(data=data, P1=0.5, P2=1, num.sims=num.sims, burn.in=burn.in, maxt=600)
+ 
 write.csv(fp2, "Results_FP2.csv")
 
