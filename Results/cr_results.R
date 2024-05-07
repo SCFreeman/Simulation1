@@ -1,5 +1,4 @@
 # Build a data frame consisting of estimand data for all methods and all scenarios
-
 rm(list=ls())
 
 library(dplyr)
