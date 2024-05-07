@@ -1,14 +1,6 @@
 # Function to fit second order fixed effect Fractional Polynomial models in BUGS
-# 8th February 2022
-# 30th March 2023
 
 fp_secondorder_fe <- function(data, P1, P2, num.sims, burn.in, maxt){
-  
-  # Note: In future may need to order data first if we have more than two treatment arms in studies
-  
-  # Need to number the treatment arms within each trial
-  #data$arm[data$trt=="Control"] <- 1
-  #data$arm[data$trt=="Intervention"] <- 2
   
   # Length of time intervals
   data$length <- data$time-data$start
@@ -22,18 +14,13 @@ fp_secondorder_fe <- function(data, P1, P2, num.sims, burn.in, maxt){
   # Number of rows in dataset
   N <- nrow(data)
   
-  # Maximum time - not needed at the moment 
-  # When it is needed will need to be one of the function arguments
+  # Maximum time 
   maxt <- maxt
   
   # Mean & precision
   mean <- c(0,0, 0)
   prec <- array(c(0.0001, 0, 0, 0, 0.0001, 0, 0, 0, 0.0001), dim=c(3,3))
   
-  # When I run FP models from Stata I have a text file called data_part2.txt
-  # this lists the treatment arms for all trials
-  # I still need this file but I need to make it part of the bugs_data list
-  # as the bugs function can only take one element
   # Vector of number of  treatment arms in each trial
   na <- c(rep(2, ns))
   
