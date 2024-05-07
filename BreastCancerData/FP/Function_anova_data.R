@@ -1,6 +1,5 @@
 # Create function that takes a generated dataset and formats the data ready to apply the anova
 # parameterisation
-
 anova_data <- function(timepoints, timepoints2, ref.study=1, df){
 
   # Split the data at timepoints
