@@ -1,5 +1,4 @@
 # Build a data frame consisting of estimand data for all methods and all scenarios
-# 13th July 2023
 
 rm(list=ls())
 
@@ -7,7 +6,7 @@ library(dplyr)
 library(tidyverse)
 library(rsimsum)
 
-setwd("R:/SCFreeman/scf20/NIHR Fellowship/Work_Package_2/Simulation")
+# Set working directory
 source("an_functions.R")
 
 # Read in piecewise results
@@ -2590,7 +2589,7 @@ df.bias$dgm3[df.bias$dgm==12] <- "Scenario 4c"
 
 
 ## Save dataset
-write.csv(df.bias, "results_sa.csv")
+write.csv(df.bias, "results.csv")
 
 
 
@@ -2865,4 +2864,4 @@ n[215,] <- c(get_data(s12_pw5, stats="nsim"), method="pw2_6_18", dgm=12)
 n[216,] <- c(get_data(s12_pw6, stats="nsim"), method="pw2_12_18", dgm=12)
 
 n %>%
-  write.csv("N_sims_sa.csv")
+  write.csv("N_sims.csv")
