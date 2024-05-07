@@ -8,7 +8,6 @@ library(doBy)
 rm(list = ls()) 
 
 # Set the working directory
-
 # Start with IPD data
 data <- read.csv("../Data/breast_data.csv")
 
