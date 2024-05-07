@@ -1,0 +1,3 @@
+# The folder Simulation1/BrestCancerData/RP contains files for fitting Royston-Parmar models to the breast cancer data
+
+# Models are fitted in Fit_RP.R. This files calls the functions Function_RP_1knot.R, Function_RP_2knots.R, Function_RP_3knots.R and Function_RP_4knots.R.  
