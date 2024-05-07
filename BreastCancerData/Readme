@@ -9,3 +9,6 @@ Event (1 = Dead, 0 = Censored)
 The subfolder FP contains files for fitting fractional polynomial models to the breast cancer data. 
 The subfolder PE contains files for fitting piecewise exponential models to the breast cancer data. 
 The subfolder RP contains files for fitting Royston-Parmamr models to the breast cancer data. 
+
+RMSTD results from running each model on the breast cancer data are contained in the file RMSTD_results.csv.
+The file forest_plot_rmstd.R creates a forest plot of these results. 
