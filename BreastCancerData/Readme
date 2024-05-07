@@ -5,3 +5,7 @@ studyID (1 = Tabernero et al., 2 = Rivera et al., 3 = Schroder et al., 4= Stemml
 arm (1 = 3-weekly, 2 = Weekly)
 Time (overall survival time in months)
 Event (1 = Dead, 0 = Censored)
+
+The subfolder FP contains files for fitting fractional polynomial models to the breast cancer data. 
+The subfolder PE contains files for fitting piecewise exponential models to the breast cancer data. 
+The subfolder RP contains files for fitting Royston-Parmamr models to the breast cancer data. 
