@@ -1,5 +1,4 @@
-# 8th February 2022
-## FIT FRACTIONAL POLYNOMIAL MODELS
+## FIT SECOND ORDER FRACTIONAL POLYNOMIAL MODELS
 
 library(survival)
 library(simsurv)
