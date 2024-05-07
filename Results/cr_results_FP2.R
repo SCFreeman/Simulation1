@@ -4,7 +4,7 @@ library(dplyr)
 library(tidyverse)
 library(rsimsum)
 
-setwd("R:/SCFreeman/scf20/NIHR Fellowship/Work_Package_2/Simulation")
+# Set working directory
 source("an_functions.R")
 
 # 2nd Order Fractional Polynomial - read in & format results
@@ -341,7 +341,7 @@ df.bias$dgm3[df.bias$dgm==12] <- "Scenario 4c"
 
 
 ## Save dataset
-write.csv(df.bias, "results_sa_2fp.csv")
+write.csv(df.bias, "results_fp2.csv")
 
 
 
@@ -376,4 +376,4 @@ n[23,] <- c(get_data(s12_2fp_df1, stats="nsim"), method="FP -0.5 & 0", dgm=12)
 n[24,] <- c(get_data(s12_2fp_df2, stats="nsim"), method="FP 0.5 & 1", dgm=12)
 
 n %>%
-  write.csv("N_sims_sa_2fp.csv")
+  write.csv("N_sims_fp2.csv")
