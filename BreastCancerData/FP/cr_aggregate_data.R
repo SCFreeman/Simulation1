@@ -15,7 +15,7 @@ data$treatment[data$arm==2] <- "Weekly"
 data$treatment <- as.factor(data$treatment)
 
 # Need to create treatment as a factor variable before applying this function
-source("anova_data.R")
+source("Function_anova_data.R")
 
 # Select time points for aggregating data
 timepoints=c(6, 12, 18)
