@@ -1,4 +1,4 @@
-This folder contains a .csv file containing the reconstructed IPD for the breast cancer example.
+This folder contains the file breast_data.csv which contains the reconstructed IPD for the breast cancer example.
 
 Columns in the dataset are:
 studyID (1 = Tabernero et al., 2 = Rivera et al., 3 = Schroder et al., 4= Stemmler et al.)
