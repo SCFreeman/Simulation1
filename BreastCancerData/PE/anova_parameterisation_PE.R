@@ -1,0 +1,42 @@
+# Aggregate IPD for fitting piecewise models
+
+# Load libraries
+library(survival)
+library(doBy)
+
+# Start with empty environment
+rm(list = ls()) 
+
+# Set the working directory
+setwd("C:/Users/scf20/OneDrive - University of Leicester/NIHR Fellowship/Work Package 2/Example/Piecewise")
+
+# Start with IPD data
+data <- read.csv("../Data/breast_data.csv")
+
+# Add treatment as a factor variable
+data$treatment[data$arm==1] <- "3 weekly"
+data$treatment[data$arm==2] <- "Weekly"
+data$treatment <- as.factor(data$treatment)
+
+# Import function for aggregating data
+source("anova_data.R")
+
+# Select time points for aggregating data
+timepoints=c(6, 12, 18)
+
+# Time points including zero
+timepoints2=c(0, 6, 12, 18)
+
+# Empty data frame for aggregated data
+anova <- data.frame(spgrp=NA, treatment=NA, trialid=NA, y=NA, nevents=NA,
+                    natrisk=NA, y.max=NA, start=NA, time=NA)
+
+# Apply function
+anova <- anova_data(timepoints=timepoints, timepoints2=timepoints2, ref.study=1, 
+                    df=data)
+
+# Convert treatment back to a numeric variable where 1=3 weekly, 2=Weekly
+anova$treatment <- as.numeric(anova$treatment)
+
+# Save as csv file
+write.csv(anova, "breast_aggregate_data_pe.csv")
