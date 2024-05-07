@@ -1,8 +1,4 @@
-# 1st February 2024
-## FIT PIECEWISE MODELS
-
-# 1. Run Sandro's code to identify which model to fit
-# 2. Fit that model in BUGS
+## FIT PIECEWISE MODELS with one cut point
 
 library(survival)
 library(simsurv)
@@ -31,10 +27,6 @@ num_trt <- 2
 num_studies <- 4
 
 # Identify 3 values for placing a single cutpoint
-# We then calculate AIC for each model using Sandro's approach
-# and fit the best model in WinBUGS
-# Note that if the values fall within the same time interval then AIC will be the same
-# (in months)
 cut_values <- c(6, 12, 18)
 
 # Select time points 
