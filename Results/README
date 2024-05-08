@@ -1,6 +1,6 @@
 # The folder 'Simulation1/Results' contains files for processing the results of simulation study.
 
-# cr_results.R creates datasets of estimand data for all models except the second order fractional polynomial models.
-# cr_results_FP2.R creates datasets of estimand data for the second order frational polynomial models.
+# cr_results.R creates datasets of estimand data for all models except the second order fractional polynomial models. It calls the file an_functions.R.
+# cr_results_FP2.R creates datasets of estimand data for the second order frational polynomial models. It calls the file an_functions.R.
 
 # an_results.R takes the datasets created above and produces the tables and plots included in the paper. 
